@@ -14,6 +14,14 @@ namespace GrpcServer.Services
             _bidirectionalList = new List<string>();
         }
 
+        #region Unary GRPC
+        public override Task<SendMessagesResponse> SendMessages(SendMessagesRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation($"Server: Recive a message from the {request.User} with text {request.Text}");
+            return Task.FromResult(new SendMessagesResponse() { Text = $"Server response: We recive the message: {request.Text}" });
+        }
+        #endregion
+
         #region Client-Side Streaming
         public override async Task<ClientStreamToServerResponse> ClientSendMessages(
             IAsyncStreamReader<ClientStreamToServerRequest> requestStream, 

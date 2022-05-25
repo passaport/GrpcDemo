@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Grpc.Core;
+﻿using Grpc.Core;
 using Grpc.Net.Client;
 using GrpcServer;
 
@@ -15,6 +12,24 @@ namespace GrpcClient
             var channel = GrpcChannel.ForAddress(ip);
             clientChannel = new Chat.ChatClient(channel);
         }
+
+        #region Unary gRPC
+        public async Task UnaryGrpc()
+        {
+            Console.Write("Name: ");
+            var inputUserName = Console.ReadLine();
+            Console.Write("Message: ");
+            var inputMessage = Console.ReadLine();
+            var inputRequest = new SendMessagesRequest()
+            {
+                User = inputUserName,
+                Text = inputMessage,
+            };
+            var requestResponse = await clientChannel.SendMessagesAsync(inputRequest);
+
+            Console.WriteLine(requestResponse.Text);
+        }
+        #endregion
 
         #region Client-Side Streaming
         public async Task ClientStreamToServer()

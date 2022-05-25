@@ -8,6 +8,7 @@ namespace GrpcClientDemo
         {
             ClientRpcConnection clientRpcConnection = new ClientRpcConnection("http://localhost:5125");
             Console.WriteLine("List of options: ");
+            Console.WriteLine("0. Unary GRPC");
             Console.WriteLine("1. Client streaming");
             Console.WriteLine("2. Server streaming");
             Console.WriteLine("3. Bidirectional streaming");
@@ -18,6 +19,9 @@ namespace GrpcClientDemo
                 throw new Exception("Error: No number as input!");
             switch(input)
             {
+                case 0:
+                    await clientRpcConnection.UnaryGrpc();
+                    break;
                 case 1:
                     await clientRpcConnection.ClientStreamToServer();
                     break;

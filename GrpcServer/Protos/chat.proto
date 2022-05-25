@@ -5,11 +5,23 @@ option csharp_namespace = "GrpcServer";
 
 service Chat
 {
+  rpc SendMessages(SendMessagesRequest) returns (SendMessagesResponse);
   rpc ClientSendMessages(stream ClientStreamToServerRequest) returns (ClientStreamToServerResponse);
   rpc ServerSendMessages(ServerStreamToClientRequest) returns (stream ServerStreamToClientResponse);
   rpc BidirectionalMessages(stream BidirectionalRequest) returns (stream BidirectionalResponse);
 }
 
+// Unary
+message SendMessagesRequest
+{
+	string user = 1;
+	string text = 2;
+}
+
+message SendMessagesResponse
+{
+	string text = 1;
+}
 
 // Server-side streaming
 message ServerStreamToClientRequest
