@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServer";
+
+
+service Chat
+{
+  rpc ClientSendMessages(stream ClientStreamToServerRequest) returns (ClientStreamToServerResponse);
+  rpc ServerSendMessages(ServerStreamToClientRequest) returns (stream ServerStreamToClientResponse);
+  rpc BidirectionalMessages(stream BidirectionalRequest) returns (stream BidirectionalResponse);
+}
+
+
+// Server-side streaming
+message ServerStreamToClientRequest
+{
+
+}
+
+message ServerStreamToClientResponse
+{
+	string text = 1;
+}
+
+// Client-side streaming
+message ClientStreamToServerRequest
+{
+	string text = 1;
+}
+
+message ClientStreamToServerResponse
+{
+
+}
+
+// Bidirectional streaming
+message BidirectionalRequest
+{
+	string text = 1;
+}
+
+message BidirectionalResponse
+{
+	string text = 1;
+}
+
+
